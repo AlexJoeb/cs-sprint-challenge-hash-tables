@@ -6,9 +6,24 @@ class Ticket:
 
 
 def reconstruct_trip(tickets, length):
-    """
-    YOUR CODE HERE
-    """
-    # Your code here
+    result = []
+    first_ticket = None
 
-    return route
+    for ticket in tickets:
+        if ticket.source == "NONE":
+            first_ticket = ticket
+            result.append(ticket.destination)
+        else: continue
+
+    def next_flight(ticket):
+        for poss in tickets:
+            if poss.source == ticket.destination and poss is not ticket:
+                if poss.destination != "NONE":
+                    result.append(poss.destination)
+                    return next_flight(poss)
+                else:
+                    result.append("NONE")
+                    break
+                
+    next_flight(first_ticket)
+    return result
